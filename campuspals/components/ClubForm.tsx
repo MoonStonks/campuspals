@@ -154,24 +154,27 @@ export default chakra(function ClubForm({ className }) {
               size='sm'
             />
 
-            {/*TODO loop through arr of tags and display */}
-            {tags.map((data, key) => {
-              return (
-                <Tag
-                  size='md'
-                  borderRadius='full'
-                  variant='solid'
-                  colorScheme='green'
-                >
-                  <TagLabel>{data}</TagLabel>
-                  <TagCloseButton
-                    onClick={() => {
-                      setTags(tags.filter((tag) => tag !== data));
-                    }}
-                  />
-                </Tag>
-              );
-            })}
+            <Box mt='5px'>
+              {/*TODO loop through arr of tags and display */}
+              {tags.map((data, key) => {
+                return (
+                  <Tag
+                    size='md'
+                    borderRadius='full'
+                    variant='solid'
+                    colorScheme='telegram'
+                    mx='2px'
+                  >
+                    <TagLabel>{data}</TagLabel>
+                    <TagCloseButton
+                      onClick={() => {
+                        setTags(tags.filter((tag) => tag !== data));
+                      }}
+                    />
+                  </Tag>
+                );
+              })}
+            </Box>
 
             <Button
               mt='5px'

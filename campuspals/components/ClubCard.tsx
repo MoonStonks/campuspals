@@ -126,7 +126,7 @@ export default chakra(function ClubCard({ className, data }) {
               <Box mt={8}>
                 <HStack>
                   {data.tags.map((tagName: string) => (
-                    <Tag colorScheme={getTagColor(tagName)} borderRadius='full'>
+                    <Tag key={tagName} colorScheme={getTagColor(tagName)} borderRadius='full'>
                       {tagName}
                     </Tag>
                   ))}
