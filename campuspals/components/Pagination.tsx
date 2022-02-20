@@ -1,70 +1,65 @@
-import { chakra } from '@chakra-ui/react';
+import { chakra, Flex, Box } from '@chakra-ui/react';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-
-
-const items = [Array(33).keys()];
+import ClubCard from './ClubCard';
 
 const Items = chakra(function Items({ currentItems, className }) {
   return (
     <div className='items'>
       {currentItems &&
-        currentItems.map((item) => (
-          <div>
-            <h3>Item #{item}</h3>
-          </div>
+        currentItems.map((item, i) => (
+          <ClubCard key={`${item.clubName}-${i}`} data={item} />
         ))}
     </div>
   );
 });
 
-export default chakra(function Pagination({ className, itemsPerPage }) {
-  // We start with an empty list of items.
+export default chakra(function Pagination({ className, itemsPerPage, data }) {
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
 
   useEffect(() => {
-    // Fetch items from another resources.
-    const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    setCurrentItems(items.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(items.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+    setItemOffset(0);
+  }, [data]);
 
-  // Invoke when user click to request another page.
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(data.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(data.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, data]);
+
   const handlePageClick = (event) => {
-    const newOffset = event.selected * itemsPerPage % items.length;
-    console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
+    const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);
   };
 
   return (
-    <>
+    <Flex flexDir='column' alignItems='center'>
       <Items currentItems={currentItems} />
-      <ReactPaginate
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={2}
-        pageCount={pageCount}
-        previousLabel="< previous"
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakLabel="..."
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
-        activeClassName="active"
-        renderOnZeroPageCount={null}
-      />
-    </>
+      <Box h='150px'>
+        <ReactPaginate
+          nextLabel='next >'
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={2}
+          pageCount={pageCount}
+          previousLabel='< previous'
+          pageClassName='page-item'
+          containerClassName='pagination'
+          pageLinkClassName='page-link'
+          previousClassName='page-prev'
+          previousLinkClassName='page-link'
+          nextClassName='page-next'
+          nextLinkClassName='page-link'
+          breakLabel='...'
+          breakClassName='page-item'
+          breakLinkClassName='page-link'
+          activeClassName='active'
+          renderOnZeroPageCount={null}
+        />
+      </Box>
+    </Flex>
   );
 });

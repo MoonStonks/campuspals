@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, VStack } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, VStack } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 import NextLink from 'next/link';
 import Head from 'next/head';
@@ -6,42 +6,20 @@ import Header from './Header';
 
 type Props = {
   children?: ReactNode;
-  title?: string;
+  uniName?: string;
 };
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
+const Layout = ({ children, uniName }: Props) => (
   <>
-    <Header></Header>
-    {children}
+    <Header
+      pos='fixed'
+      w='100%'
+      zIndex={10}
+      mt='-60px'
+      uniName={uniName}
+    ></Header>
+    <Box mt='60px'>{children}</Box>
   </>
-  // <div>
-  //   <Head>
-  //     <title>{title}</title>
-  //     <meta charSet='utf-8' />
-  //     <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-  //   </Head>
-  //   <header>
-  //     <nav>
-  //       <NextLink href='/'>
-  //         <a>Home</a>
-  //       </NextLink>{' '}
-  //       |{' '}
-  //       <NextLink href='/about'>
-  //         <a>About</a>
-  //       </NextLink>{' '}
-  //       |{' '}
-  //       <NextLink href='/users'>
-  //         <a>Users List</a>
-  //       </NextLink>{' '}
-  //       | <a href='/api/users'>Users API</a>
-  //     </nav>
-  //   </header>
-  //   {children}
-  //   <footer>
-  //     <hr />
-  //     <span>I'm here to stay (Footer)</span>
-  //   </footer>
-  // </div>
 );
 
 export default Layout;

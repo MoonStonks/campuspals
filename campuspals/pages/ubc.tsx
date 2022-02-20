@@ -24,6 +24,7 @@ import Layout from '../components/Layout';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import axios from 'axios';
 import _debounce from 'lodash/debounce';
+import Pagination from '../components/Pagination';
 
 const tags = [
   'social',
@@ -91,24 +92,22 @@ const UBCPage = () => {
     debounceFn(searchVal.toLowerCase());
   }, [searchVal]);
 
-  const searchHandler = (e) => setSearchVal(e.target.value);
-
   return (
-    <Layout>
+    <Layout uniName='ubc'>
       <Flex
-        h='calc(100vh - 60px)'
+        minH='calc(100vh - 60px)'
         alignItems='center'
-        //   bg='blue.100'
         flexDir='column'
+        backgroundColor='gray.100'
       >
         <Flex direction='column' p='15px' w='100%' h='100%'>
-          <HStack mx='auto' mb='20px'>
+          {/* <HStack mx='auto' mb='20px'>
             <Img src='/ubc-logo.png' h='50px'></Img>
             <Box w='1.5px' h='45px' bgColor='#5e7084'></Box>
             <Heading mx='auto' color='#002145' mb='20px'>
               University of British Columbia
             </Heading>
-          </HStack>
+          </HStack> */}
           <Tabs isFitted variant='enclosed'>
             <TabList mb='1em'>
               <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Clubs</Tab>
@@ -117,38 +116,48 @@ const UBCPage = () => {
             <TabPanels>
               <TabPanel>
                 <p>Clubs</p>
-                {/* <ClubCard /> */}
               </TabPanel>
               <TabPanel>
                 <p>Mentors</p>
               </TabPanel>
             </TabPanels>
           </Tabs>
-          <CheckboxGroup colorScheme='green' onChange={setSelectedTags}>
-            <Stack spacing={[1, 5]} direction={['column', 'row']}>
-              {tags.map((tag) => (
-                <Checkbox key={tag} value={tag}>
-                  {tag}
-                </Checkbox>
-              ))}
-            </Stack>
-          </CheckboxGroup>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents='none'
-              children={<BiSearchAlt2 color='gray.300' />}
-            />
-            <Input
-              type='tel'
-              placeholder='Search clubs'
-              value={searchVal}
-              onChange={searchHandler}
-            />
-          </InputGroup>
-          <Pagination itemsPerPage={5} />
-          {memoizedData.map((item, i) => (
-            <ClubCard key={`${item.clubName}-${i}`} data={item} />
-          ))}
+          <Flex
+            position='absolute'
+            sx={{
+              border: '1px solid grey',
+              width: '350px',
+              marginTop: '120px',
+            }}
+            flexDir='column'
+            boxShadow='0px 20px 40px rgba(0, 0, 0, 0.2)'
+            borderRadius='20px'
+          >
+            <Box m='20px'>
+              <InputGroup mb='30px'>
+                <InputLeftElement
+                  pointerEvents='none'
+                  children={<BiSearchAlt2 color='gray.300' />}
+                />
+                <Input
+                  type='tel'
+                  placeholder='Search clubs'
+                  value={searchVal}
+                  onChange={(e) => setSearchVal(e.target.value)}
+                />
+              </InputGroup>
+              <CheckboxGroup colorScheme='green' onChange={setSelectedTags}>
+                <Stack spacing={[1, 5]}>
+                  {tags.map((tag) => (
+                    <Checkbox key={tag} value={tag}>
+                      {tag}
+                    </Checkbox>
+                  ))}
+                </Stack>
+              </CheckboxGroup>
+            </Box>
+          </Flex>
+          <Pagination itemsPerPage={10} data={memoizedData} />
         </Flex>
       </Flex>
     </Layout>

@@ -37,6 +37,7 @@ import {
 import ClubForm from '../components/ClubForm';
 import TutorForm from '../components/TutorForm';
 import ClubCard from '../components/ClubCard';
+import TutorCard from '../components/TutorCard';
 
 const SFUPage = () => {
   const [clubs, setClubs] = useState([]);
@@ -78,7 +79,7 @@ const SFUPage = () => {
   // }
 
   return (
-    <Layout>
+    <Layout uniName='sfu'>
       <Flex
         minH='calc(100vh - 60px)'
         alignItems='center'
@@ -86,13 +87,13 @@ const SFUPage = () => {
         backgroundColor='gray.100'
       >
         <Flex direction='column' p='15px' w='100%' h='100%'>
-          <HStack mx='auto' mb='20px'>
+          {/* <HStack mx='auto' mb='20px'>
             <Img src='/sfu_logo.png' h='50px'></Img>
             <Box w='1.5px' h='45px' bgColor='#aa5c6d'></Box>
             <Heading mx='auto' color='#CC0633' mb='20px'>
               Simon Fraser University
             </Heading>
-          </HStack>
+          </HStack> */}
           <Tabs isFitted variant='enclosed'>
             <TabList mb='1em'>
               <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Clubs</Tab>
@@ -174,8 +175,65 @@ const SFUPage = () => {
                     })
                 )}
               </TabPanel>
-              <TabPanel>
-                <p>Mentors</p>
+              <TabPanel alignItems='center' display='flex' flexDir='column'>
+                <Heading>Don't see your posting/service listed? </Heading>
+                <br />
+                <Button
+                  colorScheme='teal'
+                  onClick={() => {
+                    onOpen();
+                  }}
+                >
+                  Create Posting
+                </Button>
+                <br />
+                <Divider orientation='horizontal' />
+                <br />
+                <Modal
+                  blockScrollOnMount={false}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                >
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>
+                      {' '}
+                      Add your posting to the directory!
+                    </ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      <TutorForm />
+                    </ModalBody>
+                  </ModalContent>
+                </Modal>
+                <br />
+                {tutors.length === 0 ? (
+                  // <Progress size='lg' w='100%' isIndeterminate />
+                  <Spinner
+                    thickness='4px'
+                    speed='0.65s'
+                    emptyColor='gray.200'
+                    color='blue.500'
+                    boxSize='100px'
+                  />
+                ) : (
+                  tutors
+                    ?.filter((data) => data.university == 1)
+                    .sort((a, b) =>
+                      a.tutors?.split('')[0]?.toLowerCase() <=
+                      b.tutors?.split('')[0]?.toLowerCase()
+                        ? -1
+                        : 1
+                    )
+
+                    .map((data, key) => {
+                      return (
+                        <Box key={key}>
+                          <TutorCard data={data} w='100%' />
+                        </Box>
+                      );
+                    })
+                )}
               </TabPanel>
             </TabPanels>
           </Tabs>
