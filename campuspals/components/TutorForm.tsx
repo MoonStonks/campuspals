@@ -87,7 +87,6 @@ export default chakra(function TutorForm({ className }) {
       <FormControl isRequired>
         <HStack>
           <Container maxW='container.lg'>
-            <h1>Add a new tutor entry here! </h1>
             <FormLabel htmlFor='tutor-title'>Tutor Posting Title</FormLabel>
             <Input
               id='tutor-title'

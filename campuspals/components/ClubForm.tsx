@@ -91,8 +91,7 @@ export default chakra(function ClubForm({ className }) {
       <FormControl isRequired>
         <HStack>
           <Container maxW='container.lg'>
-            <h1>Add a new club here! </h1>
-            <FormLabel htmlFor='Club-name' mt='15px'>
+            <FormLabel htmlFor='Club-name' mb='2px'>
               Club Name
             </FormLabel>
             <Input
@@ -101,7 +100,7 @@ export default chakra(function ClubForm({ className }) {
               onChange={(event) => setClubName(event.target.value)}
             />
 
-            <FormLabel htmlFor='club-desc' mt='15px'>
+            <FormLabel htmlFor='club-desc' mt='15px' mb='2px'>
               Club Description
             </FormLabel>
 
@@ -111,7 +110,7 @@ export default chakra(function ClubForm({ className }) {
               onChange={(event) => setDescription(event.target.value)}
             />
 
-            <FormLabel htmlFor='club-uni' mt='15px'>
+            <FormLabel htmlFor='club-uni' mt='15px' mb='2px'>
               Select University
             </FormLabel>
             <Select
@@ -123,7 +122,7 @@ export default chakra(function ClubForm({ className }) {
               <option>SFU</option>
             </Select>
 
-            <FormLabel htmlFor='club-website' mt='15px'>
+            <FormLabel htmlFor='club-website' mt='15px' mb='2px'>
               Website
             </FormLabel>
 
@@ -133,7 +132,7 @@ export default chakra(function ClubForm({ className }) {
               onChange={(event) => setWebsite(event.target.value)}
             />
 
-            <FormLabel htmlFor='imgurl' mt='15px'>
+            <FormLabel htmlFor='imgurl' mt='15px' mb='2px'>
               Image
             </FormLabel>
 
@@ -143,7 +142,7 @@ export default chakra(function ClubForm({ className }) {
               onChange={(event) => setImgURL(event.target.value)}
             />
 
-            <FormLabel htmlFor='tag' mt='15px'>
+            <FormLabel htmlFor='tag' mt='15px' mb='2px'>
               Tags
             </FormLabel>
 
