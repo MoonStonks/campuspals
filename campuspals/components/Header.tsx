@@ -1,20 +1,13 @@
 import {
   chakra,
-  Button,
   Heading,
   HStack,
   Img,
-  Spacer,
   Flex,
   Box,
 } from '@chakra-ui/react';
-import { filterProps } from 'framer-motion';
 import React from 'react';
 import NextLink from 'next/link';
-
-import Image from 'next/image';
-
-// const HeaderLogo: string = require('../assets/logo.png');
 
 export default chakra(function Header({ className, uniName }) {
   return (
@@ -64,7 +57,6 @@ const SFULogo = chakra(function ({ className }) {
     <HStack className={className} mx='auto'>
       <Img src='/sfu_logo.png' h='50px'></Img>
       <Heading mx='auto' color='whiteAlpha.900' mb='20px'>
-        {/* '#CC0633' */}
         Simon Fraser University
       </Heading>
     </HStack>
@@ -75,7 +67,6 @@ const UBCLogo = chakra(function ({ className }) {
   return (
     <HStack className={className} mx='auto'>
       <Img src='/ubc-logo.png' h='50px'></Img>
-      {/* <Box w='1.5px' h='45px' bgColor='gray.500'></Box> */}
       <Heading mx='auto' color='whiteAlpha.800' mb='20px'>
         University of British Columbia
       </Heading>

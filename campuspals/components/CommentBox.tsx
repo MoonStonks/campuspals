@@ -3,23 +3,7 @@ import { DiscussionEmbed } from 'disqus-react';
 import { isEmpty } from 'lodash';
 import {
   chakra,
-  Button,
-  Heading,
-  HStack,
-  Img,
-  Flex,
   Box,
-  useColorModeValue,
-  Icon,
-  Image,
-  Tag,
-  Text,
-  Link,
-  Grid,
-  GridItem,
-  VStack,
-  Spacer,
-  IconButton,
 } from '@chakra-ui/react';
 
 /**

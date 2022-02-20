@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Link, Img, Text } from '@chakra-ui/react';
+import { Button, Flex, Heading, Img } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import React from 'react';
 import Layout from '../components/Layout';
@@ -11,8 +11,6 @@ const UniversitiesPage = () => (
       justifyContent='center'
       flexDir='column'
       background='gray.700'
-      //   backgroundImage='url("https://www.teahub.io/photos/full/248-2483376_bokeh-lights-4000-x-4000.jpg")'
-      // background-repeat='no-repeat'
     >
       <Img src='/university-vector.svg' h='300px' mb='20px'></Img>
       <Flex direction='column' background='gray.100' p='50px' rounded='20px'>

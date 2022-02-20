@@ -9,10 +9,8 @@ import {
   Button,
   Flex,
   Heading,
-  VStack,
   Divider,
   Spinner,
-  Image,
   Box,
   Modal,
   ModalOverlay,
@@ -27,12 +25,8 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Progress,
   CheckboxGroup,
-  Img,
   Stack,
-  HStack,
-  Text,
   Input,
   InputGroup,
   InputLeftElement,
@@ -40,12 +34,10 @@ import {
 
 import ClubForm from '../../components/ClubForm';
 import TutorForm from '../../components/TutorForm';
-import ClubCard from '../../components/ClubCard';
 import TutorCard from '../../components/TutorCard';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import Pagination from '../../components/Pagination';
 
-import { useRouter } from 'next/router';
 
 const tags = [
   'social',

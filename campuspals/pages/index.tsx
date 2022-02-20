@@ -1,7 +1,6 @@
 import { Button, Flex, Heading, Text, Img } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import React from 'react';
-import Layout from '../components/Layout';
 
 const IndexPage = () => (
   <Flex

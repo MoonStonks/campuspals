@@ -1,21 +1,13 @@
 import {
   chakra,
-  Button,
   Heading,
   HStack,
-  Img,
-  Flex,
   Box,
-  useColorModeValue,
-  Icon,
   Image,
   Tag,
   Text,
   Link,
-  Grid,
-  GridItem,
   VStack,
-  Spacer,
   IconButton,
 } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
