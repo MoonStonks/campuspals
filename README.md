@@ -4,7 +4,7 @@ CampusPals powers your search needs for tutors and clubs at your university! Exp
 Devpost: https://devpost.com/software/campuspals
 
 ## Inspiration
-CampusPals (https://campus-pals.vercel.app/) was inspired by the lack of a centralized page for searching for university clubs. Unfortunately, for UBC, the club website is down and doesn't even exist now (rip). As for SFU, we found the current UI outdated as seen here (https://go.sfss.ca/clubs/list).
+CampusPals (https://campus-pals.vercel.app/) was inspired by the lack of a centralized page for searching for university clubs. For UBC, clubs are locked behind a portal and can be laggy. As for SFU, we found the current UI outdated as seen here (https://go.sfss.ca/clubs/list).
 
 With CampusPals, anyone can easily search and discover new clubs, and new tutors by the university. Having a directory of clubs and tutors in one place both enhances the university student gig-economy as well as centralized all the information in one place. Our goal is to modern the club search and tutor search experience and streamline the entire process to be as simple as possible. 
 
