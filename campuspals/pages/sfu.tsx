@@ -1,8 +1,9 @@
 import axios from 'axios';
 import NextLink from 'next/link';
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import Layout from '../components/Layout';
+import _debounce from 'lodash/debounce';
 
 import {
   Button,
@@ -32,18 +33,45 @@ import {
   Stack,
   HStack,
   Text,
+  Input,
+  InputGroup,
+  InputLeftElement,
 } from '@chakra-ui/react';
 
 import ClubForm from '../components/ClubForm';
 import TutorForm from '../components/TutorForm';
 import ClubCard from '../components/ClubCard';
 import TutorCard from '../components/TutorCard';
+import { BiSearchAlt2 } from 'react-icons/bi';
+import Pagination from '../components/Pagination';
+
+const tags = [
+  'social',
+  'cultural',
+  'tech',
+  'wellbeing',
+  'innovation',
+  'health',
+  'friendship',
+  'club',
+  'food',
+  'dance',
+  'sports',
+  'arts',
+  'science',
+  'space',
+];
 
 const SFUPage = () => {
   const [clubs, setClubs] = useState([]);
   const [tutors, setTutors] = useState([]);
   const [showClubs, setShowClubs] = useState(0); // 0 = false, 1 = true
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [debouncedSearchInput, setDebouncedSearchInput] = useState('');
+  const [searchVal, setSearchVal] = useState('');
+
+  const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -65,6 +93,35 @@ const SFUPage = () => {
       }
     })();
   }, []);
+
+  const getFilteredResults = (rawData, search, tagList) => {
+    return rawData
+      .filter(
+        (rawData) =>
+          rawData.university === 1 &&
+          rawData.clubName.toLowerCase().includes(search) &&
+          (selectedTags.length
+            ? rawData.tags.some((tag) => tagList.includes(tag))
+            : true)
+      )
+      .sort((a, b) =>
+        a.clubName?.split('')[0]?.toLowerCase() <=
+        b.clubName?.split('')[0]?.toLowerCase()
+          ? -1
+          : 1
+      );
+  };
+
+  const debounceFn = useCallback(_debounce(setDebouncedSearchInput, 200), []);
+
+  const memoizedData = useMemo(
+    () => getFilteredResults(clubs, debouncedSearchInput, selectedTags),
+    [debouncedSearchInput, selectedTags, clubs]
+  );
+
+  useEffect(() => {
+    debounceFn(searchVal.toLowerCase());
+  }, [searchVal]);
 
   // async function getClubs() {
   //   try {
@@ -94,7 +151,11 @@ const SFUPage = () => {
               Simon Fraser University
             </Heading>
           </HStack> */}
-          <Tabs isFitted variant='enclosed'>
+          <Tabs
+            isFitted
+            variant='enclosed'
+            onChange={(index) => setTabIndex(index)}
+          >
             <TabList mb='1em'>
               <Tab _selected={{ color: 'white', bg: 'blue.500' }}>Clubs</Tab>
               <Tab _selected={{ color: 'white', bg: 'green.400' }}>Mentors</Tab>
@@ -125,17 +186,26 @@ const SFUPage = () => {
                 >
                   <ModalOverlay />
                   <ModalContent>
-                    <ModalHeader> Add your club to the directory!</ModalHeader>
+                    {tabIndex == 0 ? (
+                      <ModalHeader>
+                        {' '}
+                        Add your club to the directory!
+                      </ModalHeader>
+                    ) : (
+                      <ModalHeader>
+                        {' '}
+                        Add your posting to the directory!
+                      </ModalHeader>
+                    )}
+
                     <ModalCloseButton />
                     <ModalBody>
-                      <ClubForm />
+                      {tabIndex == 0 ? <ClubForm /> : <TutorForm />}
                     </ModalBody>
                   </ModalContent>
                 </Modal>
                 <br />
-                {/* <p>{JSON.stringify(clubs)}</p> */}
                 {clubs.length === 0 ? (
-                  // <Progress size='lg' w='100%' isIndeterminate />
                   <Spinner
                     thickness='4px'
                     speed='0.65s'
@@ -144,35 +214,50 @@ const SFUPage = () => {
                     boxSize='100px'
                   />
                 ) : (
-                  clubs
-                    ?.filter((data) => data.university == 1)
-                    .sort((a, b) =>
-                      a.clubName?.split('')[0]?.toLowerCase() <=
-                      b.clubName?.split('')[0]?.toLowerCase()
-                        ? -1
-                        : 1
-                    )
-                    .map((data, key) => {
-                      return (
-                        <Box key={key}>
-                          <ClubCard data={data} w='100%' />
-
-                          {/* <Container maxW='xl' centerContent background='lightblue'>
-                    <Image
-                      src={data.imgURL}
-                      alt={data.clubName + 'IMG'}
-                      borderRadius='full'
-                      boxSize='150px'
-                    />
-                    <Heading>{data.clubName}</Heading>{' '}
-                    <Text fontSize='sm'>{data.description} </Text>
-                    {data.website}
-                    {data.university == 0 ? 'UBC' : 'SFU'}
-                    {data.email}
-                  </Container> */}
-                        </Box>
-                      );
-                    })
+                  <>
+                    {/* <Flex direction='row' p='15px' pos='sticky' left={0}> */}
+                    <Flex
+                      flexDir='row'
+                      border='100px'
+                      backgroundColor='white'
+                      boxShadow='0px 20px 40px rgba(0, 0, 0, 0.2)'
+                      borderRadius='10px'
+                      pos='sticky'
+                      top='90px'
+                      alignSelf='flex-start'
+                      // mt='150px'
+                      w='240px'
+                    >
+                      <Box m='20px' w='100%'>
+                        <InputGroup mb='30px'>
+                          <InputLeftElement
+                            pointerEvents='none'
+                            children={<BiSearchAlt2 color='gray.300' />}
+                          />
+                          <Input
+                            type='tel'
+                            placeholder='Search clubs'
+                            value={searchVal}
+                            onChange={(e) => setSearchVal(e.target.value)}
+                          />
+                        </InputGroup>
+                        <CheckboxGroup
+                          colorScheme='green'
+                          onChange={setSelectedTags}
+                        >
+                          <Stack>
+                            {tags.map((tag) => (
+                              <Checkbox key={tag} value={tag} size='md'>
+                                {tag}
+                              </Checkbox>
+                            ))}
+                          </Stack>
+                        </CheckboxGroup>
+                      </Box>
+                    </Flex>
+                    {/* </Flex> */}
+                    <Pagination itemsPerPage={10} data={memoizedData} />
+                  </>
                 )}
               </TabPanel>
               <TabPanel alignItems='center' display='flex' flexDir='column'>
@@ -189,23 +274,7 @@ const SFUPage = () => {
                 <br />
                 <Divider orientation='horizontal' />
                 <br />
-                <Modal
-                  blockScrollOnMount={false}
-                  isOpen={isOpen}
-                  onClose={onClose}
-                >
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>
-                      {' '}
-                      Add your posting to the directory!
-                    </ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                      <TutorForm />
-                    </ModalBody>
-                  </ModalContent>
-                </Modal>
+
                 <br />
                 {tutors.length === 0 ? (
                   // <Progress size='lg' w='100%' isIndeterminate />

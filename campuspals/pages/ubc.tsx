@@ -54,11 +54,11 @@ const UBCPage = () => {
   const getFilteredResults = (rawData, search, tagList) => {
     return rawData
       .filter(
-        (data) =>
-          data.university === 1 &&
-          data.clubName.toLowerCase().includes(search) &&
+        (rawData) =>
+          rawData.university === 0 &&
+          rawData.clubName.toLowerCase().includes(search) &&
           (selectedTags.length
-            ? data.tags.some((tag) => tagList.includes(tag))
+            ? rawData.tags.some((tag) => tagList.includes(tag))
             : true)
       )
       .sort((a, b) =>
@@ -115,49 +115,51 @@ const UBCPage = () => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <p>Clubs</p>
+                {' '}
+                <Flex
+                  flexDir='row'
+                  border='100px'
+                  backgroundColor='white'
+                  boxShadow='0px 20px 40px rgba(0, 0, 0, 0.2)'
+                  borderRadius='10px'
+                  pos='sticky'
+                  top='90px'
+                  alignSelf='flex-start'
+                  // mt='150px'
+                  w='240px'
+                >
+                  <Box m='20px' w='100%'>
+                    <InputGroup mb='30px'>
+                      <InputLeftElement
+                        pointerEvents='none'
+                        children={<BiSearchAlt2 color='gray.300' />}
+                      />
+                      <Input
+                        type='tel'
+                        placeholder='Search clubs'
+                        value={searchVal}
+                        onChange={(e) => setSearchVal(e.target.value)}
+                      />
+                    </InputGroup>
+                    <CheckboxGroup
+                      colorScheme='green'
+                      onChange={setSelectedTags}
+                    >
+                      <Stack>
+                        {tags.map((tag) => (
+                          <Checkbox key={tag} value={tag} size='md'>
+                            {tag}
+                          </Checkbox>
+                        ))}
+                      </Stack>
+                    </CheckboxGroup>
+                  </Box>
+                </Flex>
+                <Pagination itemsPerPage={10} data={memoizedData} />
               </TabPanel>
-              <TabPanel>
-                <p>Mentors</p>
-              </TabPanel>
+              <TabPanel></TabPanel>
             </TabPanels>
           </Tabs>
-          <Flex
-            position='absolute'
-            sx={{
-              border: '1px solid grey',
-              width: '350px',
-              marginTop: '120px',
-            }}
-            flexDir='column'
-            boxShadow='0px 20px 40px rgba(0, 0, 0, 0.2)'
-            borderRadius='20px'
-          >
-            <Box m='20px'>
-              <InputGroup mb='30px'>
-                <InputLeftElement
-                  pointerEvents='none'
-                  children={<BiSearchAlt2 color='gray.300' />}
-                />
-                <Input
-                  type='tel'
-                  placeholder='Search clubs'
-                  value={searchVal}
-                  onChange={(e) => setSearchVal(e.target.value)}
-                />
-              </InputGroup>
-              <CheckboxGroup colorScheme='green' onChange={setSelectedTags}>
-                <Stack spacing={[1, 5]}>
-                  {tags.map((tag) => (
-                    <Checkbox key={tag} value={tag}>
-                      {tag}
-                    </Checkbox>
-                  ))}
-                </Stack>
-              </CheckboxGroup>
-            </Box>
-          </Flex>
-          <Pagination itemsPerPage={10} data={memoizedData} />
         </Flex>
       </Flex>
     </Layout>

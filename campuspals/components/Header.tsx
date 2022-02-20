@@ -19,30 +19,29 @@ import Image from 'next/image';
 export default chakra(function Header({ className, uniName }) {
   return (
     <HStack
-      h='60px'
+      h='70px'
       className={className}
-      bg={uniName ? (uniName === 'ubc' ? '#7aa6d6' : 'red.100') : 'gray.100'}
+      bg={uniName ? (uniName === 'ubc' ? '#356eac' : '#df2a45') : 'gray.100'}
     >
-      <Flex alignItems='center'>
+      <HStack alignItems='center' flexDir='row' pos='absolute'>
         <Img ml='30px' src='/diversity-icon2.png' h='50' w='50'></Img>
-
+        <Box w='10px' />
         <NextLink href='/'>
-          <Heading ml='0' size='sm'>
+          <Heading ml='0' size='sm' _hover={{ cursor: 'pointer' }}>
             CampusPals
           </Heading>
         </NextLink>
-      </Flex>
-      <Box w='30px' />
-      {/* <Button variant='ghost' textColor='gray.600'>
-        Home
-      </Button> */}
-      <NextLink href='/universities'>
-        <Button variant='ghost' textColor='gray.600'>
-          Universities
-        </Button>
-      </NextLink>
+        <Box w='20px' />
+        <NextLink href='/universities'>
+          <Button variant='ghost' textColor='gray.800'>
+            Universities
+          </Button>
+        </NextLink>
+      </HStack>
 
-      <Flex pos='absolute' left='30%'>
+      {/* <Box w='30px' /> */}
+
+      <Flex w='100%'>
         {uniName ? uniName === 'ubc' ? <UBCLogo /> : <SFULogo /> : null}
       </Flex>
     </HStack>
@@ -53,8 +52,8 @@ const SFULogo = chakra(function ({ className }) {
   return (
     <HStack className={className} mx='auto'>
       <Img src='/sfu_logo.png' h='50px'></Img>
-      <Box w='1.5px' h='45px' bgColor='#aa5c6d'></Box>
-      <Heading mx='auto' color='#CC0633' mb='20px'>
+      <Heading mx='auto' color='whiteAlpha.900' mb='20px'>
+        {/* '#CC0633' */}
         Simon Fraser University
       </Heading>
     </HStack>
@@ -65,8 +64,8 @@ const UBCLogo = chakra(function ({ className }) {
   return (
     <HStack className={className} mx='auto'>
       <Img src='/ubc-logo.png' h='50px'></Img>
-      <Box w='1.5px' h='45px' bgColor='#5e7084'></Box>
-      <Heading mx='auto' color='#002145' mb='20px'>
+      {/* <Box w='1.5px' h='45px' bgColor='gray.500'></Box> */}
+      <Heading mx='auto' color='whiteAlpha.800' mb='20px'>
         University of British Columbia
       </Heading>
     </HStack>

@@ -15,10 +15,10 @@ const Layout = ({ children, uniName }: Props) => (
       pos='fixed'
       w='100%'
       zIndex={10}
-      mt='-60px'
+      mt='-70px'
       uniName={uniName}
     ></Header>
-    <Box mt='60px'>{children}</Box>
+    <Box mt='70px'>{children}</Box>
   </>
 );
 

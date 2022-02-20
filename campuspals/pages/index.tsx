@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Text } from '@chakra-ui/react';
+import { Button, Flex, Heading, Text, Img } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import React from 'react';
 import Layout from '../components/Layout';
@@ -19,15 +19,19 @@ const IndexPage = () => (
         p={12}
         rounded={6}
         mx='auto'
+        justifyContent='center'
+        alignItems='center'
       >
-        <Heading mb={6}>Campus Pals</Heading>
-        <Text>
-          Explore, Discover, and Connect. <br /> Modern Club and Tutor Directory
-          Search by University{' '}
+        <Img src='/diversity-icon2.png' h='50' w='50'></Img>
+        <Heading mb={6}>CampusPals</Heading>
+        <Text textAlign='center' fontSize='lg' alignItems='center'>
+          Explore, Discover, and Connect. <br /> Search for Clubs and Tutors at
+          your University{' '}
         </Text>
+        <br />
 
         <NextLink href='/universities'>
-          <Button colorScheme='blue'>Get Started</Button>
+          <Button colorScheme='blue'>Explore</Button>
         </NextLink>
       </Flex>
     </Flex>

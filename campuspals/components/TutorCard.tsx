@@ -53,9 +53,15 @@ export default chakra(function TutorCard({ className, data }) {
         >
           <HStack m={2} w='100%'>
             <Box pl='20px' w='100%'>
-              <Heading size='md'>{data.title}</Heading>
-              <Heading size='sm'>Posted by: {data.name}</Heading>
-              <Heading size='sm'>Rate: {data.rate}</Heading>
+              <Heading size='md'>{data.title}</Heading>{' '}
+              <Heading size='sm'>
+                <Text color='blue.500'>
+                  Posted by: <i>{data.name}</i>
+                </Text>
+              </Heading>
+              <Heading size='sm'>
+                Rate: <i>{data.rate}</i>
+              </Heading>
               <chakra.p
                 mt={4}
                 color={useColorModeValue('gray.600', 'gray.400')}
@@ -63,8 +69,6 @@ export default chakra(function TutorCard({ className, data }) {
                 {data.description.length >= 200
                   ? `${data.description.substring(0, 190)}...`
                   : data.description}
-                
-               
               </chakra.p>
               <Box mt={8}>
                 <HStack>

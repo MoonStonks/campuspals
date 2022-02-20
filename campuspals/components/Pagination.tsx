@@ -36,7 +36,7 @@ export default chakra(function Pagination({ className, itemsPerPage, data }) {
   };
 
   return (
-    <Flex flexDir='column' alignItems='center'>
+    <Flex flexDir='column' alignItems='center' mt='-570px'>
       <Items currentItems={currentItems} />
       <Box h='150px'>
         <ReactPaginate
