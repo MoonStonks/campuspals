@@ -38,7 +38,6 @@ import TutorCard from '../../components/TutorCard';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import Pagination from '../../components/Pagination';
 
-
 const tags = [
   'social',
   'cultural',
@@ -91,11 +90,11 @@ const SFUPage = () => {
   const getFilteredResults = (rawData, search, tagList) => {
     return rawData
       .filter(
-        (rawData) =>
-          rawData.university === 1 &&
-          rawData.clubName.toLowerCase().includes(search) &&
+        (item) =>
+          item.university === 1 &&
+          item.clubName.toLowerCase().includes(search) &&
           (selectedTags.length
-            ? rawData.tags.some((tag) => tagList.includes(tag))
+            ? selectedTags.every((tag) => item.tags.includes(tag))
             : true)
       )
       .sort((a, b) =>
