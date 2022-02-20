@@ -2,7 +2,7 @@ import axios from 'axios';
 import NextLink from 'next/link';
 import React from 'react';
 import { useEffect, useState, useMemo, useCallback } from 'react';
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 import _debounce from 'lodash/debounce';
 
 import {
@@ -38,12 +38,14 @@ import {
   InputLeftElement,
 } from '@chakra-ui/react';
 
-import ClubForm from '../components/ClubForm';
-import TutorForm from '../components/TutorForm';
-import ClubCard from '../components/ClubCard';
-import TutorCard from '../components/TutorCard';
+import ClubForm from '../../components/ClubForm';
+import TutorForm from '../../components/TutorForm';
+import ClubCard from '../../components/ClubCard';
+import TutorCard from '../../components/TutorCard';
 import { BiSearchAlt2 } from 'react-icons/bi';
-import Pagination from '../components/Pagination';
+import Pagination from '../../components/Pagination';
+
+import { useRouter } from 'next/router';
 
 const tags = [
   'social',
@@ -62,7 +64,7 @@ const tags = [
   'space',
 ];
 
-const UBCPage = () => {
+const SFUPage = () => {
   const [clubs, setClubs] = useState([]);
   const [tutors, setTutors] = useState([]);
   const [showClubs, setShowClubs] = useState(0); // 0 = false, 1 = true
@@ -98,7 +100,7 @@ const UBCPage = () => {
     return rawData
       .filter(
         (rawData) =>
-          rawData.university === 0 &&
+          rawData.university === 1 &&
           rawData.clubName.toLowerCase().includes(search) &&
           (selectedTags.length
             ? rawData.tags.some((tag) => tagList.includes(tag))
@@ -123,20 +125,8 @@ const UBCPage = () => {
     debounceFn(searchVal.toLowerCase());
   }, [searchVal]);
 
-  // async function getClubs() {
-  //   try {
-  //     const response = await axios.get(
-  //       'https://campuspalsdb.herokuapp.com/clubs'
-  //     );
-  //     console.log(response);
-  //     setClubs(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   return (
-    <Layout uniName='ubc'>
+    <Layout uniName='sfu'>
       <Flex
         minH='calc(100vh - 60px)'
         alignItems='center'
@@ -144,13 +134,6 @@ const UBCPage = () => {
         backgroundColor='gray.100'
       >
         <Flex direction='column' p='15px' w='100%' h='100%'>
-          {/* <HStack mx='auto' mb='20px'>
-            <Img src='/sfu_logo.png' h='50px'></Img>
-            <Box w='1.5px' h='45px' bgColor='#aa5c6d'></Box>
-            <Heading mx='auto' color='#CC0633' mb='20px'>
-              Simon Fraser University
-            </Heading>
-          </HStack> */}
           <Tabs
             isFitted
             variant='enclosed'
@@ -211,7 +194,6 @@ const UBCPage = () => {
                   />
                 ) : (
                   <>
-                    {/* <Flex direction='row' p='15px' pos='sticky' left={0}> */}
                     <Flex
                       flexDir='row'
                       border='100px'
@@ -221,7 +203,6 @@ const UBCPage = () => {
                       pos='sticky'
                       top='90px'
                       alignSelf='flex-start'
-                      // mt='150px'
                       w='240px'
                     >
                       <Box m='20px' w='100%'>
@@ -273,7 +254,6 @@ const UBCPage = () => {
 
                 <br />
                 {tutors.length === 0 ? (
-                  // <Progress size='lg' w='100%' isIndeterminate />
                   <Spinner
                     thickness='4px'
                     speed='0.65s'
@@ -283,7 +263,7 @@ const UBCPage = () => {
                   />
                 ) : (
                   tutors
-                    ?.filter((data) => data.university == 0)
+                    ?.filter((data) => data.university == 1)
                     .sort((a, b) =>
                       a.tutors?.split('')[0]?.toLowerCase() <=
                       b.tutors?.split('')[0]?.toLowerCase()
@@ -308,4 +288,4 @@ const UBCPage = () => {
   );
 };
 
-export default UBCPage;
+export default SFUPage;

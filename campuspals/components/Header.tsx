@@ -21,21 +21,32 @@ export default chakra(function Header({ className, uniName }) {
     <HStack
       h='70px'
       className={className}
-      bg={uniName ? (uniName === 'ubc' ? '#356eac' : '#df2a45') : 'gray.100'}
+      bg={uniName ? (uniName === 'ubc' ? '#356eac' : '#df2a45') : 'gray.500'}
     >
       <HStack alignItems='center' flexDir='row' pos='absolute'>
         <Img ml='30px' src='/diversity-icon2.png' h='50' w='50'></Img>
         <Box w='10px' />
         <NextLink href='/'>
-          <Heading ml='0' size='sm' _hover={{ cursor: 'pointer' }}>
+          <Heading
+            ml='0'
+            size='sm'
+            _hover={{ cursor: 'pointer' }}
+            color='whiteAlpha.900'
+          >
             CampusPals
           </Heading>
         </NextLink>
         <Box w='20px' />
         <NextLink href='/universities'>
-          <Button variant='ghost' textColor='gray.800'>
-            Universities
-          </Button>
+          <Box h='100%'>
+            <Heading
+              size='sm'
+              textColor='whiteAlpha.900'
+              _hover={{ cursor: 'pointer' }}
+            >
+              Universities
+            </Heading>
+          </Box>
         </NextLink>
       </HStack>
 

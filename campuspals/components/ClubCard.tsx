@@ -126,7 +126,11 @@ export default chakra(function ClubCard({ className, data }) {
               <Box mt={8}>
                 <HStack>
                   {data.tags.map((tagName: string) => (
-                    <Tag key={tagName} colorScheme={getTagColor(tagName)} borderRadius='full'>
+                    <Tag
+                      key={tagName}
+                      colorScheme={getTagColor(tagName)}
+                      borderRadius='full'
+                    >
                       {tagName}
                     </Tag>
                   ))}
@@ -168,6 +172,20 @@ export default chakra(function ClubCard({ className, data }) {
                         <AiOutlineMail />
                       </Link>
                     )}
+                    <NextLink
+                      href={`/${data.university === 0 ? 'ubc' : 'sfu'}/[id]`}
+                      as={`/${
+                        data.university === 0 ? 'ubc' : 'sfu'
+                      }/${data.clubName.replaceAll(' ', '')}`}
+                    >
+                      <Button colorScheme='blue'>Learn More</Button>
+                    </NextLink>
+
+                    {/* <Link href="/users/[id]" as={`/users/${data.id}`}>
+                      <a>
+                           {data.id}: {data.name}
+                             </a>
+                      </Link> */}
                   </HStack>
                 </HStack>
               </Box>

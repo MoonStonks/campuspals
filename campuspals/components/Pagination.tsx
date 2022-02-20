@@ -3,13 +3,16 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import ClubCard from './ClubCard';
+import ClubPage from './ClubPage';
 
 const Items = chakra(function Items({ currentItems, className }) {
   return (
     <div className='items'>
       {currentItems &&
         currentItems.map((item, i) => (
-          <ClubCard key={`${item.clubName}-${i}`} data={item} />
+          <div>
+            <ClubCard key={`${item.clubName}-${i}`} data={item} />
+          </div>
         ))}
     </div>
   );
